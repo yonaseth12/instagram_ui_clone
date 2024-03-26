@@ -33,7 +33,7 @@ class SearchPage extends StatelessWidget {
                   borderSide: BorderSide.none,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                fillColor: Color.fromRGBO(220, 220, 220, 1),
+                fillColor: Colors.grey[200],
                 filled: true,
               ),
             ),

@@ -37,33 +37,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //STORY
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: List.generate(8, (index) => Container(
-                    padding: EdgeInsets.all(6),
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 35,
-                          backgroundImage: AssetImage(
-                            'images/story.jpg',
-                          ),
-                          child: CircleAvatar(
-                            radius: 33,
-                            child: CircleAvatar(
-                              radius: 31,
-                              backgroundImage: AssetImage(profileImages[index],),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Text(profileNames[index], style: TextStyle(fontSize: 12, color: Colors.black87,),),
-                      ],
-                    ),
-                  ))
-                ),
-              ),
+              StoryCircleWidget(profileImages: profileImages, profileNames: profileNames, storyNumber: 8, circleRadius: 35,),
               Divider(),
               //POSTS
               Column(
@@ -94,11 +68,14 @@ class _HomePageState extends State<HomePage> {
                         IconButton(icon: Icon(Icons.more_vert), onPressed: () {},)
                     ],),
                     //IMAGE OF POST
-                    Image.asset('images/post_${(index+10)%22}.jpg',
+                    FadeInImage.assetNetwork(
+                      placeholder: 'images/loading_image.gif',
+                      placeholderFit: BoxFit.fitWidth,
+                      image: 'images/post_${(index+10)%22}.jpg',
                       width: MediaQuery.of(context).size.width,
                       // height: MediaQuery.of(context).size.width,
                       fit: BoxFit.cover,
-                      ),
+                    ),
                     //BOTTOM OF POST
                     Row(children:[
                       IconButton(icon: Icon(Icons.favorite_border), highlightColor: Colors.pink[200], onPressed: () {}),
@@ -138,6 +115,52 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class StoryCircleWidget extends StatelessWidget {
+  const StoryCircleWidget({
+    super.key,
+    required this.profileImages,
+    required this.profileNames,
+    required this.storyNumber,
+    required this.circleRadius,
+  });
+
+  final List<String> profileImages;
+  final List<String> profileNames;
+  final int storyNumber;
+  final int circleRadius;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: List.generate(storyNumber, (index) => Container(
+          padding: EdgeInsets.all(6),
+          child: Column(
+            children: [
+              CircleAvatar(
+                radius: circleRadius * 1.0,
+                backgroundImage: AssetImage(
+                  'images/story.jpg',
+                ),
+                child: CircleAvatar(
+                  radius: circleRadius - 2.0,
+                  child: CircleAvatar(
+                    radius: circleRadius - 4,
+                    backgroundImage: AssetImage(profileImages[index],),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              Text(profileNames[index], style: TextStyle(fontSize: 12, color: Colors.black87,),),
+            ],
+          ),
+        ))
       ),
     );
   }

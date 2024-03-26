@@ -1,6 +1,6 @@
 # instagram_ui_clone
 
-A flutter app cloning the UI of instagram. Inspired by Flutter Mapp
+A flutter app cloning the UI of instagram. Inspired by Flutter Mapp nad Mitch koko 
 
 It has custom splashscreen.
 
